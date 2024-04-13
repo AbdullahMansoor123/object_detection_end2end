@@ -1,2 +1,2 @@
-# object_detection_end2end
-end to end object detection example
+# Object Detection End-to-end
+End to End object detection kindey cancer example
