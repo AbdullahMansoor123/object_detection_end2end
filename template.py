@@ -27,6 +27,7 @@ list_of_files = [
     f"{project_name}/utils/__init__.py",
     f"{project_name}/utils/main_utils.py",
     "templates/index.html",
+    "research/trials.ipynb",
     "app.py",
     "Dockerfile",
     "requirements.txt",
@@ -50,5 +51,6 @@ for filepath in list_of_files:
         with open(filepath, 'w') as f:
             pass
             logging.info(f'Creating emtpy file: {filename}')
+            
     else:
-        logging.info(f'{filename} already exit')
+        logging.info(f'{filepath} already exit')
