@@ -9,8 +9,8 @@ project_name = 'image_classifier'
 
 list_of_files = [
     ".github/workflows/.gitkeep",
-    "data/.datakeep"
-    f"{project_name}/__init__.py"
+    "data/.datakeep",
+    f"{project_name}/__init__.py",
     f"{project_name}/components/__init__.py",
     f"{project_name}/components/data_ingestion.py",
     f"{project_name}/components/data_validation.py",
@@ -29,7 +29,7 @@ list_of_files = [
     "templates/index.html",
     "app.py",
     "Dockerfile",
-    "requirements.txt"
+    "requirements.txt",
     "setup.py"
 ]
 
