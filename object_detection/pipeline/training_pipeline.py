@@ -49,6 +49,7 @@ class TrainingPipeline:
     def run_pipeline(self)->None:
         try:
             data_ingestion_artifacts = self.start_data_ingestion()
+            # print(data_ingestion_artifacts)
             data_validation_artifacts = self.start_data_validation(data_ingestion_artifacts=data_ingestion_artifacts)
             return data_validation_artifacts
         except Exception as e:

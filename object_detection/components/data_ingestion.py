@@ -61,6 +61,7 @@ class DataIngestion:
         logging.info('Starting data ingestion process')
         try:
             zip_file_path  = self.download_from_GoogleDrive()
+            print(zip_file_path)
             feature_store_path = self.extract_zip_file(zip_file_path)
             data_ingestion_artifacts = DataIngestionArtifacts(
                 data_zip_file_path = zip_file_path,
