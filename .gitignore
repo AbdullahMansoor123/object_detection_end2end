@@ -3,3 +3,7 @@ logs/*
 artifacts/data_ingestion/feature_store/*
 .zip*
 test.py
+.jpg*
+images/*
+labels/*
+.pt*

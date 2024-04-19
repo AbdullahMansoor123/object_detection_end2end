@@ -1,6 +1,6 @@
 import os
 import sys
-# import zipfile
+import zipfile
 # import gdown
 import shutil
 # import yaml
@@ -18,16 +18,29 @@ class ModelTrainer:
     def initiate_model_trainer(self,)->ModelTrainerArtifacts:
         logging.info("entered initiate_model_trainer method of ModelTrainer class")
         try:
+            if os.path.exists("yolov5/runs"):
+                shutil.rmtree("yolov5/runs")
+
+            # os.system("unzip catdogmonkey_dataset.zip")
+            
+            with zipfile.ZipFile("catdogmonkey_dataset.zip", "r") as zip_ref:
+                zip_ref.extractall()   
+            os.remove("catdogmonkey_dataset.zip")
+
             logging.info("data yaml founded")
             data_yaml = os.path.join(os.getcwd(), DataIngestionConfig.feature_store_file_path+"\data.yaml")
             logging.info("started initiate model training method of ModelTrainer class")
             os.system(f"cd yolov5/ && python train.py --img 320 --batch {self.model_trainer_config.batch_size} --epochs {self.model_trainer_config.no_epochs} --data {data_yaml} --weights {self.model_trainer_config.weight_name} --name yolov5n_results --cache")
             
-            shutil.copy("yolov5/runs/yolov5n_results/weights/best.pt", "yolov5/")
+            shutil.copy("yolov5/runs/train/yolov5n_results/weights/best.pt", "yolov5/")
             os.makedirs(self.model_trainer_config.model_trainer_dir, exist_ok=True)
-            shutil.copy("yolov5/runs/yolov5n_results/weights/best.pt", self.model_trainer_config.model_trainer_dir)
-
-            os.rmdir("yolov5/runs")
+            shutil.copy("yolov5/runs/train/yolov5n_results/weights/best.pt", self.model_trainer_config.model_trainer_dir)
+            
+            shutil.rmtree("yolov5/runs")
+            shutil.rmtree("train")
+            shutil.rmtree("valid")
+            os.remove('data.yaml')
+            
 
             model_trainer_artifacts = ModelTrainerArtifacts(trained_model_file_path="yolov5/best.pt")
             
