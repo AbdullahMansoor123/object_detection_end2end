@@ -19,11 +19,11 @@ class DataValidation:
         except Exception as e:
             raise Custom_Exception(e,sys)
         
-    def validate_all_files_exist(self)->None:
+    def validate_all_files_exist(self)->bool:
         try:
             validation_status = None
 
-            all_files = os.listdir(r"D:\PycharmProjects\mlops_projects\object_detection_end2end\artifacts\feature_store")
+            all_files = os.listdir(self.data_ingestion_artifacts.feature_store_path)
                         
             for file in all_files:
                 if file not in self.data_validation_config.required_file_list:
@@ -48,10 +48,13 @@ class DataValidation:
             logging.info("got data_validation_dir")
             status = self.validate_all_files_exist()
             data_validation_artifacts= DataValidationArtifacts(validation_status=status)
-            logging.info("Exited initiate_data_validation ")
+            
+            logging.info("Exited initiate_data_validation")
+            logging.info(f"data validation artifacts {data_validation_artifacts}")
             if status:
                 shutil.copy(self.data_ingestion_artifacts.data_zip_file_path, os.getcwd())
-
+            
             return data_validation_artifacts
+        
         except Exception as e:
             raise Custom_Exception(e,sys)

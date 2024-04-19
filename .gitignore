@@ -1,3 +1,5 @@
 data/*
 logs/*
-artifacts/feature_store/*
+artifacts/data_ingestion/feature_store/*
+.zip*
+test.py
