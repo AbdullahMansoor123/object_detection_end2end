@@ -23,9 +23,9 @@ class ModelTrainer:
             logging.info("started initiate model training method of ModelTrainer class")
             os.system(f"cd yolov5/ && python train.py --img 320 --batch {self.model_trainer_config.batch_size} --epochs {self.model_trainer_config.no_epochs} --data {data_yaml} --weights {self.model_trainer_config.weight_name} --name yolov5n_results --cache")
             
-            shutil.copy("yolov5/runs/yolov5n_results/weights/best.pt yolov5/")
+            shutil.copy("yolov5/runs/yolov5n_results/weights/best.pt", "yolov5/")
             os.makedirs(self.model_trainer_config.model_trainer_dir, exist_ok=True)
-            shutil.copy(f"yolov5/runs/yolov5n_results/weights/best.pt {self.model_trainer_config.model_trainer_dir}")
+            shutil.copy("yolov5/runs/yolov5n_results/weights/best.pt", self.model_trainer_config.model_trainer_dir)
 
             os.rmdir("yolov5/runs")
 
