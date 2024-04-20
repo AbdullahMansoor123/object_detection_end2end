@@ -32,7 +32,7 @@ def trainRoute():
 def home():
     return render_template("index.html")
 
-best = r"D:\PycharmProjects\mlops_projects\object_detection_end2end\artifacts\model_trainer\best.pt"
+best = r"D:\PycharmProjects\mlops_projects\object_detection_end2end\artifacts\model_trainer\yolov5n.pt"
 
 @app.route("/predict", methods=['POST','GET'])
 @cross_origin()
@@ -44,7 +44,7 @@ def predictRoute():
         image = request.json['image']
         decodeImage(image, clApp.filename)
         
-        os.system(f"cd yolov5/ && python detect.py --weights {best} --img 416 --conf 0.01 --source ../data/inputImage.jpg")
+        os.system(f"cd yolov5/ && python detect.py --weights {best} --img 416 --conf 0.5 --source ../data/inputImage.jpg")
         
         opencodedbase64 = encodeImageIntoBase64("yolov5/runs/detect/exp/inputImage.jpg")
         result = {"image": opencodedbase64.decode('utf-8')}
