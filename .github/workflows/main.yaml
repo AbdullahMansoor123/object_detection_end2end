@@ -88,11 +88,11 @@ jobs:
          
       - name: Stop and remove  container if running
         run: |
-         docker ps -q --filter "name=objectE2E" | grep -q . && docker stop objectE2E && docker rm -fv objectE2E
+         docker ps -q --filter "name=object_e2e" | grep -q . && docker stop object_e2e && docker rm -fv object_e2e
        
       - name: Run Docker Image to serve users
         run: |
-         docker run -d -p 8080:8080 --ipc="host" --name=objectE2E -e 'AWS_ACCESS_KEY_ID=${{ secrets.AWS_ACCESS_KEY_ID }}' -e 'AWS_SECRET_ACCESS_KEY=${{ secrets.AWS_SECRET_ACCESS_KEY }}' -e 'AWS_REGION=${{ secrets.AWS_REGION }}'  ${{secrets.AWS_ECR_LOGIN_URI}}/${{ secrets.ECR_REPOSITORY_NAME }}:latest
+         docker run -d -p 8080:8080 --ipc="host" --name=object_e2e -e 'AWS_ACCESS_KEY_ID=${{ secrets.AWS_ACCESS_KEY_ID }}' -e 'AWS_SECRET_ACCESS_KEY=${{ secrets.AWS_SECRET_ACCESS_KEY }}' -e 'AWS_REGION=${{ secrets.AWS_REGION }}'  ${{secrets.AWS_ECR_LOGIN_URI}}/${{ secrets.ECR_REPOSITORY_NAME }}:latest
       - name: Clean previous images and containers
         run: |
          docker system prune -f
