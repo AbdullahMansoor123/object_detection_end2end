@@ -1,10 +1,25 @@
-FROM python:3.9 
+FROM python:3.9
+
 WORKDIR /app
-COPY . /app
 
-RUN apt update -y && apt install awscli -y
+# Update package lists and install necessary packages
+RUN apt-get update && \
+    apt-get install -y --no-install-recommends \
+    awscli \
+    ffmpeg \
+    libsm6 \
+    libxext6 \
+    unzip && \
+    rm -rf /var/lib/apt/lists/*
 
-RUN apt-get update 
-RUN apt-get install ffmpeg libsm6 libxext6 unzip -y
-RUN pip install -r requirements.txt
-ENTRYPOINT ["python", "app.py"]
+# Copy only the requirements file first to leverage Docker caching
+COPY requirements.txt .
+
+# Install Python dependencies
+RUN pip install --no-cache-dir -r requirements.txt
+
+# Copy the rest of the application code
+COPY . .
+
+# Set the entrypoint
+ENTRYPOINT ["python3", "app.py"]
